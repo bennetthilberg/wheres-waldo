@@ -1,24 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import Game from './components/Game';
+import HiScores from './components/HiScores';
+
+function Main() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate('/game');
+  }, []);
+
+  return (
+    <>
+      <div id="topbar">
+        <div id="playTrigger" className='linkTrigger'>
+          <Link to='/game'>Play</Link>
+        </div>
+        <div id="hiScoreTrigger" className='linkTrigger'>
+          <Link to='/hiscores'>High Scores</Link>
+        </div>
+
+      </div>
+      <Routes>
+        <Route path='/game' element={<Game />} />
+        <Route path='/hiscores' element={<HiScores />} />
+      </Routes>
+      <div id="footer">
+        <p>By Bennett Hilberg</p>
+      </div>
+    </>
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Main />
+    </Router>
   );
 }
 

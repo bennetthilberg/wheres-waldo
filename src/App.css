@@ -1,11 +1,16 @@
 body{
   background-color: black;
+  color: white;
+}
+body, html{
+  margin: 0;
+  padding: 0;
 }
 #topbar{
   background-color: rgb(53, 0, 102);
   height: 68px;
   display: grid;
-  grid-template-columns: 1fr 150px 90px 150px 1fr;
+  grid-template-columns: 1fr 170px 10px 170px 1fr;
   grid-template-rows: 1fr;
 }
 #playTrigger{
@@ -15,7 +20,7 @@ body{
   grid-column: 4;
 }
 a{
-  color: white;
+  color: rgb(253, 231, 255);
   text-decoration: none;
   font-size: 23px;
   font-weight: 500;
@@ -25,7 +30,82 @@ a{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  cursor: pointer;
 }
 .linkTrigger:hover a{
+  color: rgb(249, 177, 255);
   font-size: 29px;
+  font-weight: 600;
+  transition: font-size 0.175s ease-in-out;
+}
+#app{
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 68px 1fr 42px;
+  margin: 0;
+  padding: 0;
+}
+#topbar{
+  grid-row: 1,2;
+}
+#footer{
+  grid-row: 4,5;
+  background-color: rgb(19, 0, 41);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#game{
+  background-color: blueviolet;
+  height: 100%;
+  width: 100%;
+  grid-row: 2,4;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 1fr;
+}
+#sideBar{
+  grid-column: 1,2;
+}
+.scene{
+  height: 491px;
+  width: 704px;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"><circle cx="32" cy="32" r="28" stroke="black" stroke-width="2" fill="none"/></svg>') 16 16, auto;
+}
+.purpBtn{
+  background-color: rgb(232, 174, 255);
+  color: rgb(55, 0, 107);
+  cursor: pointer;
+  width: 180px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 3px 3px 19px -4px rgba(0,0,0,0.62);
+  -moz-box-shadow: 3px 3px 19px -4px rgba(0,0,0,0.62);
+  box-shadow: 3px 3px 19px -4px rgba(0,0,0,0.62);
+  transition: background-color 0.1s ease-in-out;
+}
+.purpBtn:hover{
+  background-color: rgb(240, 204, 255);
+}
+.purpBtn>p{
+  padding: 0;
+  margin: 0;
+  font-weight: 700;
+  font-size: 40px;
+  transition: font-size 0.1s ease-in-out;
+  
+}
+.purpBtn:hover >p{
+  font-size: 44px;
+}
+.purpBtn>div{
+  font-size: 32px;
+  font-weight: 600;
+}
+#red{
+  background-color: red;
 }

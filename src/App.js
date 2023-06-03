@@ -11,7 +11,7 @@ function Main() {
   }, []);
 
   return (
-    <>
+    <div id='app'>
       <div id="topbar">
         <div id="playTrigger" className='linkTrigger'>
           <Link to='/game'>Play</Link>
@@ -28,7 +28,7 @@ function Main() {
       <div id="footer">
         <p>By Bennett Hilberg</p>
       </div>
-    </>
+    </div>
   );
 }
 

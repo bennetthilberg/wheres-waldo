@@ -165,4 +165,112 @@ a{
 .lScore{
   margin-left: auto;
   margin-right: 55px;
+}/*
+#nameForm{
+  width: 70%;
+  background-color: rgb(205, 168, 240);
+  -webkit-box-shadow: 3px 3px 19px -4px rgba(0,0,0,0.65);
+  -moz-box-shadow: 3px 3px 19px -4px rgba(0,0,0,0.65);
+  box-shadow: 3px 3px 19px -4px rgba(0,0,0,0.65);
+  border: 4px solid rgb(53, 0, 102);
+  border-radius: 8px;
+  color: rgb(53, 0, 102);
+  margin-top: 25px;
+  margin-bottom: 240px;
+  margin-left: 20px;
+  display: grid;
+  grid-template-columns: 1fr 800px 1fr;
+  grid-template-rows: 70px 30px 1fr;
+}
+#nameForm>h1, #nameForm>h2{
+  grid-column: 2/3;
+  text-align: center;
+  margin: 0;
+}
+#nameForm>h1{
+  grid-row: 1/2;
+  margin-top: 15px;
+  font-size: 55px;
+}
+#nameForm>h1{
+ 
+  font-size: 40px;
+}
+#nameForm>div{
+  grid-row: 3/-1;
+  grid-column: 2/-2;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+.nameActualForm, .nameActualForm>*{
+  text-decoration: none;
+  background-color: rgb(205, 168, 240);
+}
+input{
+  appearance: none;
+  height: 25px;
+  border: 2px solid rgb(53, 0, 102);
+  border-radius: 9px;
+}
+input:hover, input:active{
+  background-color: rgb(224, 198, 248);
+}
+textarea, input { outline: none; }/
+#game{
+  background-color: blueviolet;
+  height: 100%;
+  width: 100%;
+  grid-row: 2,4;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 1fr;
+  place-items: center; /* new line 
+}
+*/
+#nameForm{
+  width: 70%;
+  background-color: rgb(205, 168, 240);
+  -webkit-box-shadow: 3px 3px 19px -4px rgba(0,0,0,0.65);
+  -moz-box-shadow: 3px 3px 19px -4px rgba(0,0,0,0.65);
+  box-shadow: 3px 3px 19px -4px rgba(0,0,0,0.65);
+  border: 4px solid rgb(53, 0, 102);
+  border-radius: 8px;
+  color: rgb(53, 0, 102);
+  padding: 20px; 
+  display: flex;
+  
+  flex-direction: column; 
+  align-items: center; 
+  margin-top: 30px;
+  margin-bottom: 150px;
+}
+
+input{
+  appearance: none;
+  height: 35px; 
+  width: 60%; 
+  padding: 0 15px;
+  border: 2px solid rgb(53, 0, 102);
+  border-radius: 9px;
+  background-color: rgb(225, 206, 244);
+}
+
+button{
+  appearance: none; 
+  background-color: rgb(53, 0, 102); 
+  color: white; 
+  border: none; 
+  border-radius: 5px; 
+  padding: 10px 20px; 
+  cursor: pointer; 
+  margin-top: 10px; 
+}
+
+button:hover{
+  background-color: rgb(73, 20, 132); 
+}
+h1{
+  font-size: 50px;
+  margin-bottom: 3px;
 }

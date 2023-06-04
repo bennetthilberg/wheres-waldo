@@ -4,13 +4,14 @@ import { getFirestore, collection, getDocs, query, orderBy, limit } from 'fireba
 
 export default function Game({}){
     const [gameActive, setGameActive] = useState(false);
-    const [score, setScore] = useState(1);
+    const [score, setScore] = useState(40);
     const [divColor, setDivColor] = useState('default');
     const [countActive, setCountActive] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
     const [wonYet, setWonYet] = useState(false);
     const [btnText, setBtnText] = useState('Start');
     const [lowestHiScore, setLowestHiScore] = useState(999);
+    const [namePrompting, setNamePrompting] = useState(false);
     let finalScore = 0;
     useEffect(() => {
         async function getTop5(){
@@ -35,17 +36,21 @@ export default function Game({}){
             setDivColor('green');
             setCountActive(false);
             clearInterval(intervalId);
-            setTimeout(() => {setGameActive(false);}, 1000);
+            setTimeout(() => {
+                setGameActive(false);
+                if(finalScore > lowestHiScore){
+                    console.log('high!!!')
+                    setNamePrompting(true);
+                }
+                else{
+                    console.log('low')
+                }
+            }, 1000);
             setWonYet(true);
             finalScore = score.toFixed(1);
             console.log(finalScore);
-            //
-            if(finalScore > lowestHiScore){
-                console.log('high!!!')
-            }
-            else{
-                console.log('low')
-            }
+            
+            
         }
     }
     function handleStartClick(){
@@ -87,7 +92,20 @@ export default function Game({}){
                 
             </div>
             {gameActive ? <img className='scene' onClick={handleSceneClick} src="https://chandralynn.files.wordpress.com/2014/06/waldo5.png" alt=""/> : <></>}
-            {/*<img className='scene' onClick={handleClick} src="https://chandralynn.files.wordpress.com/2014/06/waldo5.png" alt=""/>*/}
+            {namePrompting ? 
+            <div id='nameForm'>
+                <h1>You got a high score!</h1>
+                <h2>Enter your name...</h2>
+                <div>
+                    <form id='nameSubmitForm' className='nameActualForm'>
+                        <input type="text" id="hsname" />
+                        <button type="submit">Submit</button>
+                    </form>
+                    
+                </div>
+                
+            </div> 
+            : <></>}
         </div>
         // left: 383 to 414
         // top: 122 to 157

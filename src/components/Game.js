@@ -1,16 +1,29 @@
 import {useEffect,useState} from 'react';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 
 
 export default function Game({}){
     const [gameActive, setGameActive] = useState(false);
-    const [score, setScore] = useState(2);
+    const [score, setScore] = useState(1);
     const [divColor, setDivColor] = useState('default');
     const [countActive, setCountActive] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
     const [wonYet, setWonYet] = useState(false);
     const [btnText, setBtnText] = useState('Start');
+    const [lowestHiScore, setLowestHiScore] = useState(999);
     let finalScore = 0;
+    useEffect(() => {
+        async function getTop5(){
+            const db = getFirestore();
+            const col = collection(db, 'scores');
+            const top5Docs = await getDocs(query(col, orderBy("score", "desc"), limit(5)));
+            return(top5Docs);
+        }
+        getTop5().then(t5 => {
+            setLowestHiScore(t5.docs[4].data().score);
+        })
+    }, [])
+    
     function handleSceneClick(e){
         let rect = e.target.getBoundingClientRect();
         let x = e.clientX - rect.left;
@@ -26,7 +39,13 @@ export default function Game({}){
             setWonYet(true);
             finalScore = score.toFixed(1);
             console.log(finalScore);
-            
+            //
+            if(finalScore > lowestHiScore){
+                console.log('high!!!')
+            }
+            else{
+                console.log('low')
+            }
         }
     }
     function handleStartClick(){

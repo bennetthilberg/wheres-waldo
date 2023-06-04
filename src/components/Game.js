@@ -1,30 +1,60 @@
 import {useEffect,useState} from 'react';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+
 
 export default function Game({}){
     const [gameActive, setGameActive] = useState(false);
     const [score, setScore] = useState(2);
     const [divColor, setDivColor] = useState('default');
+    const [countActive, setCountActive] = useState(false);
+    const [intervalId, setIntervalId] = useState(null);
+    const [wonYet, setWonYet] = useState(false);
+    const [btnText, setBtnText] = useState('Start');
+    let finalScore = 0;
     function handleSceneClick(e){
         let rect = e.target.getBoundingClientRect();
         let x = e.clientX - rect.left;
         let y = e.clientY - rect.top;
         console.log("Left: " + x + " Top: " + y + ".");
-    }
-    function handleStartClick(){
-        setGameActive(true);
-    }
-    useEffect(() => {
-        if(gameActive){
-            setInterval(() => {
-                setScore(prevScore => prevScore - 0.1);
-            }, 100)
+        if(x > 383 && x < 414 && y > 122 && y < 157){
+            // found him
+            setBtnText(`Score: ${score.toFixed(1)}`);
+            setDivColor('green');
+            setCountActive(false);
+            clearInterval(intervalId);
+            setTimeout(() => {setGameActive(false);}, 1000);
+            setWonYet(true);
+            finalScore = score.toFixed(1);
+            console.log(finalScore);
             
         }
-    }, [gameActive])
+    }
+    function handleStartClick(){
+        if(!wonYet){
+            setGameActive(true);
+            setCountActive(true);
+        }
+        
+    }
+    useEffect(() => {
+        let id;
+        if(gameActive){
+            id = setInterval(() => {
+                if(countActive){
+                    setScore(prevScore => prevScore - 0.1);
+                }
+                
+            }, 100)
+            setIntervalId(id);
+        }
+        return () => clearInterval(intervalId);
+    }, [gameActive, countActive])
     useEffect(() => {
         if(score < 0.1){
             setDivColor('red');
             setGameActive(false);
+            setBtnText('You lose!');
+            setWonYet(true);
         }
     }, [score])
     return(
@@ -32,7 +62,7 @@ export default function Game({}){
             <div id="sideBar">
                 <p>Find Waldo!</p>
                 <div id={divColor} onClick={handleStartClick} className='purpBtn'>{
-                    gameActive ? <div>Score: {score.toFixed(1)}</div> : <p>Start</p>
+                    gameActive ? <div>Score: {score.toFixed(1)}</div> : <div>{btnText}</div>
                     }
                 </div>
                 

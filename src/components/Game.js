@@ -1,10 +1,10 @@
 import {useEffect,useState} from 'react';
-import { getFirestore, collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, query, orderBy, limit, addDoc } from 'firebase/firestore';
 
 
-export default function Game({}){
+export default function Game({navToHS}){
     const [gameActive, setGameActive] = useState(false);
-    const [score, setScore] = useState(40);
+    const [score, setScore] = useState(60);
     const [divColor, setDivColor] = useState('default');
     const [countActive, setCountActive] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
@@ -12,11 +12,13 @@ export default function Game({}){
     const [btnText, setBtnText] = useState('Start');
     const [lowestHiScore, setLowestHiScore] = useState(999);
     const [namePrompting, setNamePrompting] = useState(false);
+    const [wonYetLinker, setWonYetLinker] = useState('notWonYet')
+    const [hiName, setHiName] = useState('');
     let finalScore = 0;
+    const db = getFirestore();
+    const col = collection(db, 'scores');
     useEffect(() => {
-        async function getTop5(){
-            const db = getFirestore();
-            const col = collection(db, 'scores');
+        async function getTop5(){            
             const top5Docs = await getDocs(query(col, orderBy("score", "desc"), limit(5)));
             return(top5Docs);
         }
@@ -32,6 +34,7 @@ export default function Game({}){
         console.log("Left: " + x + " Top: " + y + ".");
         if(x > 383 && x < 414 && y > 122 && y < 157){
             // found him
+            setWonYetLinker('wonYet')
             setBtnText(`Score: ${score.toFixed(1)}`);
             setDivColor('green');
             setCountActive(false);
@@ -76,17 +79,37 @@ export default function Game({}){
     useEffect(() => {
         if(score < 0.1){
             setDivColor('red');
+            setWonYetLinker('wonYet')
             setGameActive(false);
             setBtnText('You lose!');
             setWonYet(true);
         }
     }, [score])
+    /*useEffect(() => {
+        console.log(hiName);
+    }, [hiName])*/
+    async function handlePress(e){
+        e.preventDefault();
+        try {
+            const docRef = await(addDoc(col, {'name': hiName, 'score': score.toFixed(1)}));
+            console.log('success! written with docref...', docRef);
+            navToHS();
+
+        } catch (error) {
+            console.log(':( writing error', error)
+        }
+        
+        
+    }
+    function handleChange(e){
+        setHiName(e.target.value);
+    }
     return(
         <div id="game">
             <div id="sideBar">
-                <p>Find Waldo!</p>
+                <p className='findWaldo'>Find Waldo! He's hidden in the scene.</p>
                 <div id={divColor} onClick={handleStartClick} className='purpBtn'>{
-                    gameActive ? <div>Score: {score.toFixed(1)}</div> : <div>{btnText}</div>
+                    gameActive ? <div>Score: {score.toFixed(1)}</div> : <div className={wonYetLinker} id='startTxt'>{btnText}</div>
                     }
                 </div>
                 
@@ -96,10 +119,10 @@ export default function Game({}){
             <div id='nameForm'>
                 <h1>You got a high score!</h1>
                 <h2>Enter your name...</h2>
-                <div>
+                <div id='formContainer'>
                     <form id='nameSubmitForm' className='nameActualForm'>
-                        <input type="text" id="hsname" />
-                        <button type="submit">Submit</button>
+                        <input type="text" id="hsname" onChange={handleChange}/>
+                        <button className='formBtn' type="submit" onClick={handlePress}><p>Submit</p></button>
                     </form>
                     
                 </div>

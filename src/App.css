@@ -82,6 +82,7 @@ a{
   justify-content: center;
   align-items: center;
   margin: 4px;
+  margin-left: 12px;
   border-radius: 4px;
   -webkit-box-shadow: 3px 3px 19px -4px rgba(0,0,0,0.62);
   -moz-box-shadow: 3px 3px 19px -4px rgba(0,0,0,0.62);
@@ -91,16 +92,16 @@ a{
 .purpBtn:hover{
   background-color: rgb(240, 204, 255);
 }
-.purpBtn>p{
+.purpBtn>#startTxt:not(.wonYet){
   padding: 0;
   margin: 0;
   font-weight: 700;
-  font-size: 40px;
-  transition: font-size 0.1s ease-in-out;
+  font-size: 39px;
+  transition: font-size 0.12s ease-in-out;
   
 }
-.purpBtn:hover >p{
-  font-size: 44px;
+.purpBtn:hover >#startTxt:not(.wonYet){
+  font-size: 46px;
 }
 .purpBtn>div{
   font-size: 32px;
@@ -249,14 +250,14 @@ textarea, input { outline: none; }/
 input{
   appearance: none;
   height: 35px; 
-  width: 60%; 
+  width: 88%; 
   padding: 0 15px;
   border: 2px solid rgb(53, 0, 102);
   border-radius: 9px;
   background-color: rgb(225, 206, 244);
 }
 
-button{
+.formBtn{
   appearance: none; 
   background-color: rgb(53, 0, 102); 
   color: white; 
@@ -265,6 +266,7 @@ button{
   padding: 10px 20px; 
   cursor: pointer; 
   margin-top: 10px; 
+  width: 100%;
 }
 
 button:hover{
@@ -273,4 +275,30 @@ button:hover{
 h1{
   font-size: 50px;
   margin-bottom: 3px;
+}
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#formContainer{
+  width: 300px;
+}
+.formBtn{
+  height: 50px;
+}
+.formBtn>p{
+  margin: 0;
+  transition: font-size 0.175s ease-in-out;
+}
+.formBtn>p{
+  font-size: 20px;
+}
+.formBtn:hover >p{
+  font-size: 25px;
+}
+.findWaldo{
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 12px;
 }

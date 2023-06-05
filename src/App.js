@@ -9,7 +9,9 @@ function Main() {
   useEffect(() => {
     navigate('/game');
   }, []);
-
+  function goToHS(){
+    navigate('/hiscores')
+  }
   return (
     <div id='app'>
       <div id="topbar">
@@ -22,7 +24,7 @@ function Main() {
 
       </div>
       <Routes>
-        <Route path='/game' element={<Game />} />
+        <Route path='/game' element={<Game navToHS={goToHS}/>} />
         <Route path='/hiscores' element={<HiScores />} />
       </Routes>
       <div id="footer">
